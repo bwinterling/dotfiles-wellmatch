@@ -1,0 +1,52 @@
+#!/bin/sh
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+
+export PATH="$HOME/.rbenv/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/heroku/bin:$PATH"
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+export NVM_DIR="/Users/A662003/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+#######################
+# PROMPT
+#######################
+if [ -e ~/.bash_prompt ] ; then
+  . ~/.bash_prompt
+fi
+
+#######################
+# Aliases
+#######################
+if [ -e ~/.bash_aliases ] ; then
+  . ~/.bash_aliases
+fi
+
+#######################
+# Environment Variables
+#######################
+if [ -e ~/.bash_variables ] ; then
+  . ~/.bash_variables
+fi
+
+#######################
+# Exercism Completion
+#######################
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+  . ~/.config/exercism/exercism_completion.bash
+fi
+
+source ~/git-completion.bash
+
+# Kafka Logs
+# example: kafka_log dev api-provider-search
+# help: kafka_logs dev api-clinical-search -- -h
+# read from start --- lots of log data: kafka_logs dev api-clinical-search -o start
+kafka_log () {
+  KAFKA_LOG_HOST="inf-use1-kafka.inf-inf-utopia.com"
+  KAFKA_LOG_PORT="9092"
+  env="$1"
+  app="$2"
+  shift 2
+  kafkacat -C -b "$KAFKA_LOG_HOST:$KAFKA_LOG_PORT" -t "$env.$app" -o end -u "$@"
+}

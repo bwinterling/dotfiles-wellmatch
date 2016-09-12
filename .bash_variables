@@ -1,0 +1,16 @@
+# export ANDROID_HOME=/Users/A662003/Source/adt-bundle-mac-x86_64-20131030/sdk
+export ANDROID_HOME=/Applications/AndroidStudio.app/sdk
+export JAVA_HOME=$(/usr/libexec/java_home)
+export BASTION_USER=bwinterling
+export RALLY_CLI_CONFIG=~/.rally_cli.yml
+
+# for tesseract OCR
+export CFLAGS='-I/usr/local/Cellar/tesseract/3.02.02/include -I/usr/local/Cellar/leptonica/1.69_1/include'
+export LDFLAGS='-L/usr/local/Cellar/tesseract/3.02.02/lib -L/usr/local/Cellar/leptonica/1.69_1/lib'
+
+# ## Boot2Docker
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/A662003/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+$(boot2docker shellinit)

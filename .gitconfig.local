@@ -1,5 +1,9 @@
 [github]
-	user = wellmatchdev
+	user = bwinterling
 [user]
-	email = dev@wellmatchhealth.com
-	name = "WellMatch Workstation"
+	email = bwinterling@itriagehealth.com
+	name = "Brian Winterling"
+[alias]
+  glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph
+  plom = pull origin master

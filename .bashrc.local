@@ -1,0 +1,62 @@
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+
+export PATH="$HOME/.rbenv/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/heroku/bin:$PATH"
+
+export NVM_DIR="/Users/A662003/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+#######################
+# Aliases
+#######################
+alias cdp="cd ~/Projects"
+alias cde="cd ~/Exercises"
+alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
+alias rs="redis-server /usr/local/etc/redis.conf"
+
+#######################
+# Docker
+#######################
+alias nuke='docker rm $(docker ps -a -q)'
+alias thermonuke='docker rmi $( docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)'
+
+#######################
+# Rails
+#######################
+alias bi="bundle install -j4"
+
+#######################
+# KafkaCat
+#######################
+# Kafka Logs
+# example: kafka_log dev api-provider-search
+# help: kafka_logs dev api-clinical-search -- -h
+# read from start --- lots of log data: kafka_logs dev api-clinical-search -o start
+kafka_log () {
+  KAFKA_LOG_HOST="inf-use1-kafka.inf-inf-utopia.com"
+  KAFKA_LOG_PORT="9092"
+  env="$1"
+  app="$2"
+  shift 2
+  kafkacat -C -b "$KAFKA_LOG_HOST:$KAFKA_LOG_PORT" -t "$env.$app" -o end -u "$@"
+}
+
+alias kcataa='kafka_dev api-address'
+alias kcatap='kafka_dev api-provider'
+alias kcataps='kafka_dev api-provider-search'
+alias kcatac='kafka_dev api-clinical'
+alias kcatacs='kafka_dev api-clinical-search'
+
+#######################
+# Environment Variables
+#######################
+if [ -e ~/.bash_variables ] ; then
+  . ~/.bash_variables
+fi
+
+#######################
+# PROMPT
+#######################
+if [ -e ~/.bash_prompt ] ; then
+  . ~/.bash_prompt
+fi
